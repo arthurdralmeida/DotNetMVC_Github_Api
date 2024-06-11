@@ -200,11 +200,11 @@ E no arquivo GithubRepoRepository.cs temos a validação de que a cada inserçã
 ### Comandos
 Dentro da camada de Aplicação temos 3 comandos: UpdateAllData, GetRepositoriesByFilters e GetRepositoryById. 
 
-O comando UpdateAllData é de extrema importância, nele temos o passoo inicial de limpar todos os itens do banco de dados, buscar pela Api do Github os 100 principais repositórios de cada uma das 5 linguagens e salvar no banco de dados. Ao final desse comando temos ao todo 500 repositórios, 461 usuários e 17 licenças salvos no banco sql. Ele pode ser executado chamando o endpoint [PATCH] /repositories.
+- O comando *UpdateAllData* é de extrema importância, nele temos o passoo inicial de limpar todos os itens do banco de dados, buscar pela Api do Github os 100 principais repositórios de cada uma das 5 linguagens e salvar no banco de dados. Ao final desse comando temos ao todo 500 repositórios, 461 usuários e 17 licenças salvos no banco sql. Ele pode ser executado chamando o endpoint `[PATCH]/repositories`.
 
-O comando GetRepositoriesByFilters é responsável por buscar os repositórios salvos no banco de dados de forma paginada, permitindo filtrar por linguagem e escolher a quantidade de itens por pagina e a pagina. Nele tem a validação de limite máximo de itens por página, permitindo o máximo de 100 para não sobrecarregar as conexões da aplicação com o banco de dados (extremamente importante em um ambiente de produção). Ele pode ser executado chamando o endpoint [GET] /repositories.
+- O comando *GetRepositoriesByFilters* é responsável por buscar os repositórios salvos no banco de dados de forma paginada, permitindo filtrar por linguagem e escolher a quantidade de itens por pagina e a pagina. Nele tem a validação de limite máximo de itens por página, permitindo o máximo de 100 para não sobrecarregar as conexões da aplicação com o banco de dados (extremamente importante em um ambiente de produção). Ele pode ser executado chamando o endpoint `[GET]/repositories`.
 
-O comando GetRepositoryById é responsável por buscar um repositório específico pelo id. Ele pode ser executado chamando o endpoint [GET] /repositories/{id}.
+- O comando *GetRepositoryById* é responsável por buscar um repositório específico pelo id. Ele pode ser executado chamando o endpoint `[GET]/repositories/{id}`.
 
 ### Testes Unitários
 Na camada de UnitTests temos testes unitários para os comandos de UpdateAllData, GetRepositoriesByFilters e GetRepositoryById. Para rodar os testes basta rodar o comando:

@@ -157,18 +157,23 @@ Aqui é importante lembrar que o repositório não tem uma relação one-to-one 
 
 Sendo assim, na camade de Repositório, temos essa configuração no SqlDbContext.cs:
 ```csharp
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
-	{
-		modelBuilder.Entity<GithubRepo>()
-			.HasOne(x => x.License)
-			.WithMany()
-			.HasForeignKey(x => x.LicenseId);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-		modelBuilder.Entity<GithubRepo>()
-			.HasOne(x => x.Owner)
-			.WithMany()
-			.HasForeignKey(x => x.OwnerId);
-	}
+            modelBuilder.Entity<GithubRepoModel>()
+                        .HasOne(r => r.Owner)
+                        .WithMany(o => o.Repositories)
+                        .HasForeignKey(r => r.OwnerId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<GithubRepoModel>()
+                        .HasOne(r => r.License)
+                        .WithMany(o => o.Repositories)
+                        .HasForeignKey(r => r.LicenseId)
+                        .IsRequired(false)
+                        .OnDelete(DeleteBehavior.Cascade);
+        }
 ```
 E no arquivo GithubRepoRepository.cs temos a validação de que a cada inserção de um repositório é verificado se a licença e o usuário já estão no banco de dados, caso não estejam, são inseridos e caso estejam o Repositório recebe seus Ids como chaves:
 ```csharp

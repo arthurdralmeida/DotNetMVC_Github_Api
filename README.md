@@ -172,7 +172,7 @@ Sendo assim, na camade de Repositório, temos essa configuração no SqlDbContex
 ```
 E no arquivo GithubRepoRepository.cs temos a validação de que a cada inserção de um repositório é verificado se a licença e o usuário já estão no banco de dados, caso não estejam, são inseridos e caso estejam o Repositório recebe seus Ids como chaves:
 ```csharp
-		public async Task AddAsync(GithubRepo repository)
+	public async Task AddAsync(GithubRepo repository)
         {
             var model = Map(repository);
 
